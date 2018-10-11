@@ -1,0 +1,47 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+	<h1>Welcome to Restful task api!</h1>
+</div>
+<div style="text-align:center">
+	<h2>All The Tasks: </h2>
+	<button (click)="getTasksFromService($event)">Get all tasks</button>
+	<ul>
+		<li *ngFor="let task of tasks" style="list-style: none">
+			<h3>{{task.title}} - {{task.completed}}</h3>
+			<button (click)="showEditField($event, task._id, task.title, task.description, task.completed)">Edit</button>
+			<button (click)="onDelete($event, task._id, task.title, task.description)">Delete</button>
+		</li>
+	</ul>
+</div>
+<div>
+	<form (submit)="addNewTask($event)">
+		<input type="text" name="newtask.title" [(ngModel)]="newtask.title">
+		<input type="text" name="newtask.description" [(ngModel)]="newtask.description">
+		<input type="submit" value="Add new task">
+	</form>
+</div>
+<div *ngIf="showeditform == true">
+	<form (submit)="editTask($event)">
+		<input type="text" name="thistask.title" [(ngModel)]="thistask.title" placeholder="title">
+		<input type="text" name="thistask.description" [(ngModel)]="thistask.description" placeholder="description">
+		Completed:<input type="radio" name="thistask.completed" [(ngModel)]="thistask.completed" value="true">Complete
+		<input type="radio" name="thistask.completed" [(ngModel)]="thistask.completed" value="false">Not Complete
+		<input type="hidden" name="thistask._id" [(ngModel)]="thistask._id">
+		<input type="submit" value="Update Task">
+	</form>
+</div>
+<hr>
+<div style="text-align: center">
+	<form (submit)="showTaskFromService($event)">
+		<input type="text" name="showthistask._id" [(ngModel)]="showthistask._id">
+		<input type="submit" name="showTaskFromService" value="Get Task">
+	</form>
+</div>
+<div *ngIf="show_form == true" style="text-align:center">
+	<h2>The task your looking for task:</h2>
+	<ul>
+		<li style="list-style: none">
+			<p *ngFor="let i of idtask">{{ i.title }} - {{i.description}}	</p>
+		</li>
+	</ul>
+</div>
